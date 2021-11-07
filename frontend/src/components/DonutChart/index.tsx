@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { SaleSum } from 'types/sale';
 import { BASE_URL } from 'utils/requests';
@@ -8,23 +9,29 @@ type ChartData = {
     labels: string[];
     series: number[];
 }
+
 const DonutChart = () => {
 
-    /* Forma errada */
-    let chartData : ChartData = { labels: [], series: []};
+    /* Como a chamada é assincrona, o js chama os dados mas continua rodando os códigos seguintes, 
+    por isso os dados não são puxados. Para isso, preciso usar o useState */
 
-    axios.get(`${BASE_URL}/sales/total-amount-by-seller`)
+    const [chartData, setChartData] = useState<ChartData>({ labels: [], series: []});
+
+    useEffect(() => {
+        axios.get(`${BASE_URL}/sales/total-amount-by-seller`)
         .then(response => {
-            /* Puxando dados da Api, confrome tipos definidos no arquivo sale.ts */
+            // Puxando dados da Api, confrome tipos definidos no arquivo sale.ts
             const data = response.data as SaleSum[];
-            /* Filtrando dados da API e criando uma nova coleção para aplicar no chart */
+            // Filtrando dados da API e criando uma nova coleção para aplicar no chart 
             const myLabels = data.map(x => x.sellerName);
             const mySeries = data.map(x => x.sum);
 
-            chartData = { labels: myLabels, series: mySeries};
-            console.log(chartData);
+            setChartData({ labels: myLabels, series: mySeries});
+          //   console.log(chartData); 
         });
-/*     
+    }, []);
+    
+    /*   
     const mockData = {
         series: [477138, 499928, 444867, 220426, 473088],
         labels: ['Anakin', 'Barry Allen', 'Kal-El', 'Logan', 'Padmé']
