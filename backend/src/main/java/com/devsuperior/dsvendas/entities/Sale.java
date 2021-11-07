@@ -23,7 +23,7 @@ public class Sale {
 
     @ManyToOne
     @JoinColumn(name="seller_id") /* Mapeamento com a chave estrangeira de seller */
-    private Seller seller;  /* Atributo correspondente à relação com um vendedor. */
+    private Seller seller;  /* Atributo correspondente à relação com um vendedor */
 
     public Sale () {
     }

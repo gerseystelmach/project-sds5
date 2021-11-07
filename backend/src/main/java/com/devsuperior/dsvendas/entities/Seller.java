@@ -19,7 +19,7 @@ public class Seller {
     private String name;
 
     @OneToMany(mappedBy = "seller") /* Indico aqui o atributo seller, conforme relação criada na entidade Sale */
-    private List<Sale> sales = new ArrayList<>();   /* Atributo correspondente à relação com muitas vendas. */
+    private List<Sale> sales = new ArrayList<>();   /* Atributo correspondente à relação com muitas vendas */
 
     public Seller() {
     }
