@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(value = "/sellers")
 public class SellerController {
 
-    /* O controlador depende do serviço, conforme estrutura de camada.*/
+    /* O controlador depende do serviço, conforme estrutura de camada */
     @Autowired
     private SellerService service;
 
